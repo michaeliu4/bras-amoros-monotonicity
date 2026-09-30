@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+build/
+checks/capacity/numerical_input_checks.json
+checks/raw-tail/check_raw_tail_scalars.json
+checks/mass/check_mass.json
+checks/mass/check_mass_refinement.json

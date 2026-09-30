@@ -1,0 +1,169 @@
+{
+  "manifest_version": 1,
+  "title": "Genus monotonicity for numerical semigroups",
+  "version": "v1 computational companion",
+  "repository": "https://github.com/michaeliu4/bras-amoros-monotonicity",
+  "license": "No license file is included in this staged version.",
+  "requirements": {
+    "python": ">=3.11",
+    "cpp": "C++17 with __int128 and __builtin_*_overflow",
+    "gmp": "GMP C++ bindings discoverable as pkg-config gmpxx"
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "role": "Generated-file exclusions",
+      "sha256": "8f5e7e174223f5c3f38669925e4fc5061dea29138170a89f3fcb1dfcedbe7641",
+      "bytes": 195
+    },
+    {
+      "path": "CITATION.cff",
+      "role": "Citation metadata",
+      "sha256": "2c2a82c2e3e17b95e811ad29f89c94ffe9fdff42586a5ba84848e8eb9c63fd66",
+      "bytes": 401
+    },
+    {
+      "path": "README.md",
+      "role": "Usage and regeneration instructions",
+      "sha256": "e5dd7bca1114cf6af7ce0e34e66c80a3020d7d3003ef116f6deea149e6d181c1",
+      "bytes": 4762
+    },
+    {
+      "path": "VERIFICATION.md",
+      "role": "Computational claim-to-check map",
+      "sha256": "12bc63c0f70bb1b60ad15bc97e897f35f2c2514f51d8c65aa4bc962eaf3a0713",
+      "bytes": 1589
+    },
+    {
+      "path": "checks/capacity/verify_numerical_inputs.py",
+      "role": "Exact capacity recurrence checker",
+      "sha256": "6fe8cbd145c4a6851b5cbc6dce84a5ddb86b1a6244c6e4fa103f38279193de5a",
+      "bytes": 6763
+    },
+    {
+      "path": "checks/check_finite.py",
+      "role": "Exact finite-row and analytic-join checker",
+      "sha256": "777143b9955914b13156a2bd156e4422b5bb3499ee90ace88574ada902567947",
+      "bytes": 9655
+    },
+    {
+      "path": "checks/mass/check_mass.py",
+      "role": "Exact finite-mass scalar checker",
+      "sha256": "e1378cf9524bdbe3116891185a7a1cfda074499bc641c2578376787e92b2088e",
+      "bytes": 10951
+    },
+    {
+      "path": "checks/mass/check_mass_refinement.py",
+      "role": "Exact mass-2024 refinement checker",
+      "sha256": "a924a0018c858d61bc93a7a8e23b05bc95513187a307fb4462c8d1b159817001",
+      "bytes": 2010
+    },
+    {
+      "path": "checks/raw-tail/check_raw_tail_scalars.py",
+      "role": "Exact raw omitted-pivot scalar checker",
+      "sha256": "77b72c5aa2a7a4aa265a2cecf159d736618a936bdf344daa01cee637a7f727c1",
+      "bytes": 6947
+    },
+    {
+      "path": "data/cap4-p300-degree897.json",
+      "role": "Exact cap-four aggregate through degree 897",
+      "sha256": "4783f633270e69fb7974bef8d417999d48004e68f68f761976a83b30553c6057",
+      "bytes": 90283,
+      "byte_identical_source_sha256": "4783f633270e69fb7974bef8d417999d48004e68f68f761976a83b30553c6057"
+    },
+    {
+      "path": "data/cap5-degree300.json",
+      "role": "Exact cap-five coefficients through degree 300",
+      "sha256": "85089c63450cc3ea28680759d17948e3dd15b9cfed70e7171814c8845679b1e6",
+      "bytes": 9262,
+      "byte_identical_source_sha256": "85089c63450cc3ea28680759d17948e3dd15b9cfed70e7171814c8845679b1e6"
+    },
+    {
+      "path": "data/exact-capacity-lower.json",
+      "role": "Exact nonbinary capacity coefficients",
+      "sha256": "5b733be738964a0ffc42c9fc6207dadb7a8d47abd5eff6f78cf53f35899a62a1",
+      "bytes": 1174549,
+      "byte_identical_source_sha256": "5b733be738964a0ffc42c9fc6207dadb7a8d47abd5eff6f78cf53f35899a62a1"
+    },
+    {
+      "path": "data/mass/P100_z1247_2000_all_guarded.json",
+      "role": "Guarded short and mixed finite box",
+      "sha256": "e01859b9195e6023ba3b452bba5600507157c99bd7fe7492e65468722d4a966a",
+      "bytes": 449,
+      "byte_identical_source_sha256": "e01859b9195e6023ba3b452bba5600507157c99bd7fe7492e65468722d4a966a"
+    },
+    {
+      "path": "data/mass/P400_z1247_2000_pure_guarded.json",
+      "role": "Guarded pure finite box",
+      "sha256": "580749e9d937daad79e36e2cadd1f4f9a6bbf03aac28c31e25f9a033d729e192",
+      "bytes": 427,
+      "byte_identical_source_sha256": "580749e9d937daad79e36e2cadd1f4f9a6bbf03aac28c31e25f9a033d729e192"
+    },
+    {
+      "path": "data/refined-binary-coefficients.json",
+      "role": "Exact binary capacity coefficients",
+      "sha256": "1a7572dfe522bdebc597293f5809a667b80e9c28c44ed04e3d42975a35ba29d8",
+      "bytes": 591990,
+      "byte_identical_source_sha256": "1a7572dfe522bdebc597293f5809a667b80e9c28c44ed04e3d42975a35ba29d8"
+    },
+    {
+      "path": "src/certify_perron_box.cpp",
+      "role": "Guarded Perron finite-box generator",
+      "sha256": "2c780ccfd76e59d406b0d2b296a5ab2e4272ff3124254d7c375f07ea228b2f6d",
+      "bytes": 10810,
+      "byte_identical_source_sha256": "2c780ccfd76e59d406b0d2b296a5ab2e4272ff3124254d7c375f07ea228b2f6d"
+    },
+    {
+      "path": "src/packed_relaxation.cpp",
+      "role": "Cap-four and cap-five exact coefficient generator",
+      "sha256": "e445993546fb6d4311e3a063bc393461633618f9e50621c517751dc575797adc",
+      "bytes": 8561,
+      "byte_identical_source_sha256": "e445993546fb6d4311e3a063bc393461633618f9e50621c517751dc575797adc"
+    }
+  ],
+  "coverage": {
+    "finite_comparison_genera": [
+      1,
+      836
+    ],
+    "analytic_start_genus": 837,
+    "cap4": {
+      "degree": 897,
+      "pivot_max": 300,
+      "multiplicity_range": [
+        3,
+        597
+      ],
+      "graph_triples": 17775550,
+      "stored_shards": 595,
+      "degree_897_shards": 552,
+      "degree_1106_prefix_shards": 43
+    },
+    "cap5": {
+      "degree": 300,
+      "effective_multiplicity_range": [
+        3,
+        149
+      ],
+      "regeneration_graph_triples": 540274
+    },
+    "capacity_degree": 1500,
+    "guarded_boxes": {
+      "pure": {
+        "pivot_max": 400,
+        "graphs": 159600
+      },
+      "short_mixed": {
+        "pivot_max": 100,
+        "graphs": 666600
+      }
+    },
+    "raw_tail_multiplier_strict_upper": "221715/1000000",
+    "integer_mass_strict_upper": 2024
+  },
+  "trust_boundary": [
+    "Python arbitrary-precision integer and rational arithmetic",
+    "C++ compiler and GMP arithmetic for source regeneration",
+    "The mathematical interpretation and universal bounds proved in the paper"
+  ]
+}

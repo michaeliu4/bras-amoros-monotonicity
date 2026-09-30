@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this computational companion, please cite it using the metadata below."
+title: "Genus monotonicity for numerical semigroups"
+version: "v1 computational companion"
+type: software
+authors:
+  - family-names: Liu
+    given-names: Mingchang
+    orcid: "https://orcid.org/0009-0005-3830-8742"
+repository-code: "https://github.com/michaeliu4/bras-amoros-monotonicity"
