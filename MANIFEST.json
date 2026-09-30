@@ -3,7 +3,7 @@
   "title": "Genus monotonicity for numerical semigroups",
   "version": "v1 computational companion",
   "repository": "https://github.com/michaeliu4/bras-amoros-monotonicity",
-  "license": "No license file is included in this staged version.",
+  "license": "MIT; includes the original code, computed data, and documentation in the frozen v1 release",
   "requirements": {
     "python": ">=3.11",
     "cpp": "C++17 with __int128 and __builtin_*_overflow",
@@ -19,14 +19,20 @@
     {
       "path": "CITATION.cff",
       "role": "Citation metadata",
-      "sha256": "2c2a82c2e3e17b95e811ad29f89c94ffe9fdff42586a5ba84848e8eb9c63fd66",
-      "bytes": 401
+      "sha256": "06de741983a21434e41b8321497428abf1fef5880b3f0ccbc2d9e6abd879a6b3",
+      "bytes": 414
+    },
+    {
+      "path": "LICENSE",
+      "role": "MIT reuse license",
+      "sha256": "5e8a7d297b0fe26dd8f4ea1d5c5d3783b69598d60815827c5f05fb4230003062",
+      "bytes": 1070
     },
     {
       "path": "README.md",
       "role": "Usage and regeneration instructions",
-      "sha256": "e5dd7bca1114cf6af7ce0e34e66c80a3020d7d3003ef116f6deea149e6d181c1",
-      "bytes": 4762
+      "sha256": "558fbd38bb095250dc6ffb224b792a4868b5667fba6e41987787d0de654de96d",
+      "bytes": 4990
     },
     {
       "path": "VERIFICATION.md",

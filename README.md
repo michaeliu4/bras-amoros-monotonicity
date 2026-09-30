@@ -123,4 +123,9 @@ verify hashes, exact arithmetic, and the theorem's finite and analytic joins.
 The regeneration commands recompute the coefficient arrays or interval boxes
 from their C++ sources. `MANIFEST.json` identifies every distributed file.
 
-No license file is included in this staged version.
+## License
+
+The original code, computed data, and documentation are distributed under the
+[MIT License](LICENSE). This grant also covers the v1 release at commit
+`26d999739c7233f8131790efcbc367c0463caf09`. The manuscript and third-party
+literature are not included in this grant.
