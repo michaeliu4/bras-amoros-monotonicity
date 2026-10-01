@@ -1,7 +1,7 @@
 cff-version: 1.2.0
-message: "If you use this computational companion, please cite it using the metadata below."
+message: "If you use this code or data, please cite the repository using the metadata below."
 title: "Genus monotonicity for numerical semigroups"
-version: "v1 computational companion"
+version: "v1"
 type: software
 authors:
   - family-names: Liu

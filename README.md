@@ -1,4 +1,4 @@
-# Genus monotonicity for numerical semigroups — computational companion
+# Genus monotonicity for numerical semigroups
 
 This repository contains the exact data and source code used by the
 computer-assisted parts of *Genus monotonicity for numerical semigroups*.

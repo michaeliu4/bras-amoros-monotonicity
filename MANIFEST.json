@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "title": "Genus monotonicity for numerical semigroups",
-  "version": "v1 computational companion",
+  "version": "v1",
   "repository": "https://github.com/michaeliu4/bras-amoros-monotonicity",
   "license": "MIT; includes the original code, computed data, and documentation in the frozen v1 release",
   "requirements": {
@@ -19,8 +19,8 @@
     {
       "path": "CITATION.cff",
       "role": "Citation metadata",
-      "sha256": "06de741983a21434e41b8321497428abf1fef5880b3f0ccbc2d9e6abd879a6b3",
-      "bytes": 414
+      "sha256": "259acb7afa5345ef17e8c681131962b5b02e66641a971b085b2c6d8e7476e993",
+      "bytes": 391
     },
     {
       "path": "LICENSE",
@@ -31,8 +31,8 @@
     {
       "path": "README.md",
       "role": "Usage and regeneration instructions",
-      "sha256": "558fbd38bb095250dc6ffb224b792a4868b5667fba6e41987787d0de654de96d",
-      "bytes": 4990
+      "sha256": "08d1714fa215025c4dc2b776f3f416df96edf755b717229dd32d778009464ba8",
+      "bytes": 4962
     },
     {
       "path": "VERIFICATION.md",
