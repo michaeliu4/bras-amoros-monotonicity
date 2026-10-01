@@ -75,7 +75,11 @@ python3 checks/check_finite.py \
 ```
 
 The support inequality makes multiplicities 3 through 149 sufficient. This run
-visits 540,274 graph triples.
+visits 540,274 graph triples. The retained file records the original larger
+run through multiplicity 293, with 4,149,466 visited triples. Multiplicities
+150–293 contribute zero through degree 300, so the smaller replay reproduces
+all 301 coefficients and the same 342,487 nonzero cases. The stored metadata
+is preserved as provenance.
 
 A direct cap-four regeneration is:
 
@@ -89,9 +93,15 @@ python3 checks/check_finite.py \
 This is a substantially longer computation: 17,775,550 graph triples. The
 stored aggregate was assembled from 595 fixed-multiplicity shards. Of these,
 552 were computed through degree 897; 43 pre-existing arrays were computed
-through degree 1106 and used only through degree 897. Higher-degree terms cannot
-affect retained coefficients because all subsequent polynomial shifts have
-nonnegative degree.
+through degree 1106. Those 43 arrays were truncated coefficientwise to degree
+897 before aggregation, which is addition at each fixed degree. This is
+separate from the generator's internal, exactly divisible normalization shifts.
+The direct command above recomputes the same aggregate without those historical
+shards or an aggregation script.
+
+The original sharded production run recorded about 14.3 total CPU-hours and
+82 minutes of parallel wall time. These historical timings depend on hardware
+and concurrency; they are not benchmarks for a new machine.
 
 ## Guarded Perron-box regeneration
 

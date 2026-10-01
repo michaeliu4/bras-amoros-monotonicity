@@ -17,3 +17,9 @@ The guarded-box and coefficient generators are deterministic mathematical
 programs, but executable hashes can vary across compilers and platforms. Compare
 the exact JSON fields or coefficient arrays, and record the compiler, GMP
 version, command, and source hash for a new regeneration.
+
+The v1 computational inputs are pinned at commit
+`26d999739c7233f8131790efcbc367c0463caf09`. Later license and documentation
+updates leave the generators and six exact data files unchanged. Provenance
+fields naming historical shard manifests do not denote replay dependencies:
+the direct generator commands rebuild the aggregate without those manifests.

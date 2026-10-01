@@ -19,8 +19,8 @@
     {
       "path": "CITATION.cff",
       "role": "Citation metadata",
-      "sha256": "259acb7afa5345ef17e8c681131962b5b02e66641a971b085b2c6d8e7476e993",
-      "bytes": 391
+      "sha256": "8c0bae9305563e4df38628317fef702c0299a3259904d9ca0e20e552702846d0",
+      "bytes": 442
     },
     {
       "path": "LICENSE",
@@ -31,14 +31,14 @@
     {
       "path": "README.md",
       "role": "Usage and regeneration instructions",
-      "sha256": "08d1714fa215025c4dc2b776f3f416df96edf755b717229dd32d778009464ba8",
-      "bytes": 4962
+      "sha256": "c2cab0000bf386d8ebd0ce351a9fc6d35706cdb27e0cbbce584d4a4127cbf839",
+      "bytes": 5651
     },
     {
       "path": "VERIFICATION.md",
       "role": "Computational claim-to-check map",
-      "sha256": "12bc63c0f70bb1b60ad15bc97e897f35f2c2514f51d8c65aa4bc962eaf3a0713",
-      "bytes": 1589
+      "sha256": "8c27d748d893df9aad221b0bf5d46463c734ad986a40488d8feeb3e53425a641",
+      "bytes": 1944
     },
     {
       "path": "checks/capacity/verify_numerical_inputs.py",
@@ -82,7 +82,22 @@
       "role": "Exact cap-five coefficients through degree 300",
       "sha256": "85089c63450cc3ea28680759d17948e3dd15b9cfed70e7171814c8845679b1e6",
       "bytes": 9262,
-      "byte_identical_source_sha256": "85089c63450cc3ea28680759d17948e3dd15b9cfed70e7171814c8845679b1e6"
+      "byte_identical_source_sha256": "85089c63450cc3ea28680759d17948e3dd15b9cfed70e7171814c8845679b1e6",
+      "stored_run": {
+        "multiplicity_min": 3,
+        "multiplicity_max": 293,
+        "graph_triples": 4149466,
+        "nonzero_graphs": 342487,
+        "degree": 300
+      },
+      "sufficient_replay": {
+        "multiplicity_min": 3,
+        "multiplicity_max": 149,
+        "graph_triples": 540274,
+        "nonzero_graphs": 342487,
+        "degree": 300,
+        "reason": "Finite-support inequality excludes all higher multiplicities through degree 300."
+      }
     },
     {
       "path": "data/exact-capacity-lower.json",
@@ -171,5 +186,6 @@
     "Python arbitrary-precision integer and rational arithmetic",
     "C++ compiler and GMP arithmetic for source regeneration",
     "The mathematical interpretation and universal bounds proved in the paper"
-  ]
+  ],
+  "computational_release_commit": "26d999739c7233f8131790efcbc367c0463caf09"
 }
