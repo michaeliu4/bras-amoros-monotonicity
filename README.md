@@ -7,6 +7,13 @@ enumerate all numerical semigroups through genus 836.
 
 Repository: <https://github.com/michaeliu4/bras-amoros-monotonicity>
 
+## Paper
+
+[Read the final V1 author manuscript](manuscript/genus-monotonicity_V1.pdf)
+or [download its buildable LaTeX source](manuscript/genus-monotonicity-V1-source.zip).
+The manuscript is an author preprint; its code/data release `v1` is versioned
+separately. See [manuscript file identities and build instructions](manuscript/README.md).
+
 ## Contents
 
 - `src/packed_relaxation.cpp` generates the cap-four and cap-five coefficient
@@ -16,7 +23,8 @@ Repository: <https://github.com/michaeliu4/bras-amoros-monotonicity>
 - `checks/` contains exact Python checks for the capacity recurrences, raw
   omitted-pivot constant, finite mass bound, analytic join, and finite rows.
 - `VERIFICATION.md` maps each computational claim to its inputs and command.
-- `MANIFEST.json` records SHA-256 identities and coverage.
+- `MANIFEST.json` records SHA-256 identities and coverage for the code/data package.
+  Manuscript file identities are recorded separately in `manuscript/MANIFEST.json`.
 
 The mathematical proofs that connect these computations to numerical
 semigroups are in the paper. A successful run of these programs checks the
@@ -139,3 +147,4 @@ The original code, computed data, and documentation are distributed under the
 [MIT License](LICENSE). This grant also covers the v1 release at commit
 `26d999739c7233f8131790efcbc367c0463caf09`. The manuscript and third-party
 literature are not included in this grant.
+

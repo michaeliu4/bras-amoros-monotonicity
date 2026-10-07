@@ -1,0 +1,34 @@
+{
+  "version": "V1",
+  "title": "Genus monotonicity for numerical semigroups",
+  "author": "Mingchang Liu",
+  "status": "Final author manuscript; not peer reviewed",
+  "frozen_at_utc": "2026-10-01T01:05:46.458616+00:00",
+  "code_data_release": "https://github.com/michaeliu4/bras-amoros-monotonicity/releases/tag/v1",
+  "files": {
+    "README.md": {
+      "sha256": "70eebd10550b4ddf20d50a40ec14fe23a17292a5b478b17054cf56391cdac67c",
+      "bytes": 1631
+    },
+    "build.py": {
+      "sha256": "56e17a55edafc72be6c7c7dfcb0742a42b61a2ecede1489f41bc2d8fedfb27cf",
+      "bytes": 2346
+    },
+    "genus-monotonicity-V1-source.zip": {
+      "sha256": "53aee9206dfb0c6d26c928e73b0d3e958e2a1da3fcdb6c21d70db7a1dcdf0278",
+      "bytes": 44371
+    },
+    "genus-monotonicity_V1.pdf": {
+      "sha256": "f92687a62025cc9eeda069e63704b18a20e0f1b2d216dcc64e8d5bc6266c4738",
+      "bytes": 281531
+    },
+    "manuscript.tex": {
+      "sha256": "a8569bdf85a9f9b3d01e30aea746b74c3a894adf4ca6a64db89123f484c0edfc",
+      "bytes": 115241
+    },
+    "tex_environment.json": {
+      "sha256": "163445f695cf40b32763b9890b08855ceaeade1cbc8dc16ff87bd4673280cb01",
+      "bytes": 366
+    }
+  }
+}
