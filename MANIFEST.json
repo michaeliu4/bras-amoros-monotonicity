@@ -31,8 +31,8 @@
     {
       "path": "README.md",
       "role": "Usage and regeneration instructions",
-      "sha256": "c2cab0000bf386d8ebd0ce351a9fc6d35706cdb27e0cbbce584d4a4127cbf839",
-      "bytes": 5651
+      "sha256": "9af2918bec2e4edffc6859108992a76e89d75029c09473243b63efe9f31999d5",
+      "bytes": 6105
     },
     {
       "path": "VERIFICATION.md",
@@ -187,5 +187,6 @@
     "C++ compiler and GMP arithmetic for source regeneration",
     "The mathematical interpretation and universal bounds proved in the paper"
   ],
-  "computational_release_commit": "26d999739c7233f8131790efcbc367c0463caf09"
+  "computational_release_commit": "26d999739c7233f8131790efcbc367c0463caf09",
+  "manuscript_manifest": "manuscript/MANIFEST.json"
 }
