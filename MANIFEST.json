@@ -13,8 +13,8 @@
     {
       "path": ".gitignore",
       "role": "Generated-file exclusions",
-      "sha256": "8f5e7e174223f5c3f38669925e4fc5061dea29138170a89f3fcb1dfcedbe7641",
-      "bytes": 195
+      "sha256": "c861f6345d1094f4035ffc8ed6f39a59eee7fbe032b1672f33bb0378605efee6",
+      "bytes": 299
     },
     {
       "path": "CITATION.cff",
@@ -31,14 +31,14 @@
     {
       "path": "README.md",
       "role": "Usage and regeneration instructions",
-      "sha256": "9af2918bec2e4edffc6859108992a76e89d75029c09473243b63efe9f31999d5",
-      "bytes": 6105
+      "sha256": "8bdc81d87d579252ca656b82ff6b9c8758cda21a5f023c51d3331be01f95569d",
+      "bytes": 7950
     },
     {
       "path": "VERIFICATION.md",
       "role": "Computational claim-to-check map",
-      "sha256": "8c27d748d893df9aad221b0bf5d46463c734ad986a40488d8feeb3e53425a641",
-      "bytes": 1944
+      "sha256": "d9b149f59af5a27fd44c9b6fe51e0a7a5ce0f24d08dc2c5bf757ffe3b578f424",
+      "bytes": 4699
     },
     {
       "path": "checks/capacity/verify_numerical_inputs.py",
@@ -188,5 +188,15 @@
     "The mathematical interpretation and universal bounds proved in the paper"
   ],
   "computational_release_commit": "26d999739c7233f8131790efcbc367c0463caf09",
-  "manuscript_manifest": "manuscript/MANIFEST.json"
+  "manuscript_manifest": "manuscript/MANIFEST.json",
+  "lean_supplement": {
+    "source_manifest": ".github/lean/source-sha256.json",
+    "documentation": "lean/README.md",
+    "upstream_commit": "5b96214946ee52bb6570561ab6e019970809cdd8",
+    "main_theorem": "SubmittedGenus.Native.bras_amoros_weak_monotonicity",
+    "native_certificate_count": 279,
+    "trust": "Standard Lean axioms and compiled evaluation for cap-four, cap-five and prefix computations",
+    "public_ci": "pending",
+    "manuscript_sha256": "a8569bdf85a9f9b3d01e30aea746b74c3a894adf4ca6a64db89123f484c0edfc"
+  }
 }

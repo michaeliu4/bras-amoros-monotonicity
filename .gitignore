@@ -6,3 +6,12 @@ checks/capacity/numerical_input_checks.json
 checks/raw-tail/check_raw_tail_scalars.json
 checks/mass/check_mass.json
 checks/mass/check_mass_refinement.json
+
+# Lean build and CI outputs
+.tools/
+.ci-plan/
+lean/.lake/
+*.log
+artifacts/
+base-output/
+native-output/

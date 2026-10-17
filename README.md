@@ -1,9 +1,12 @@
 # Genus monotonicity for numerical semigroups
 
 This repository contains the exact data and source code used by the
-computer-assisted parts of *Genus monotonicity for numerical semigroups*.
-It verifies coefficient bounds for relaxed Kunz-word populations; it does not
-enumerate all numerical semigroups through genus 836.
+computer-assisted parts of *Genus monotonicity for numerical semigroups*,
+together with a Lean 4 formalization of the full weak-monotonicity theorem. The
+standalone Python and C++ programs verify coefficient bounds for relaxed
+Kunz-word populations; they do not enumerate all numerical semigroups through
+genus 836. The Lean project connects the definitions, structural arguments,
+finite certificates, and analytic comparison to actual numerical semigroups.
 
 Repository: <https://github.com/michaeliu4/bras-amoros-monotonicity>
 
@@ -22,24 +25,41 @@ separately. See [manuscript file identities and build instructions](manuscript/R
 - `data/` contains the exact coefficient, capacity, and guarded-box inputs.
 - `checks/` contains exact Python checks for the capacity recurrences, raw
   omitted-pivot constant, finite mass bound, analytic join, and finite rows.
-- `VERIFICATION.md` maps each computational claim to its inputs and command.
+- `lean/` contains the Lean 4 formalization and its pinned project configuration.
+- `lean/README.md` maps the principal Lean theorems and explains reproduction
+  and trust.
+- `VERIFICATION.md` maps both the standalone computational claims and the Lean
+  verification to their inputs and commands.
 - `MANIFEST.json` records SHA-256 identities and coverage for the code/data package.
   Manuscript file identities are recorded separately in `manuscript/MANIFEST.json`.
+  Lean source identities are in `.github/lean/source-sha256.json`.
 
-The mathematical proofs that connect these computations to numerical
-semigroups are in the paper. A successful run of these programs checks the
-specified computational claims, not the paper's noncomputational arguments.
+The main Lean declaration is
+`SubmittedGenus.Native.bras_amoros_weak_monotonicity`:
+
+```lean
+∀ g : ℕ, NumericalSemigroup.count g ≤ NumericalSemigroup.count (g + 1)
+```
+
+Here `NumericalSemigroup.count g` counts actual additive submonoids of `ℕ` with
+finite complement of size `g`. The proof uses 279 `native_decide` certificate
+theorems: 224 cap-four array shards, 12 cap-five array shards, and 43 prefix
+chunks. Public CI verification of the exported project is pending. See
+[`lean/README.md`](lean/README.md) for the theorem map and exact trust boundary.
 
 ## Requirements
 
-- Python 3.11 or later; the checks use only the standard library.
+- Python 3.11 or later; the standalone checks use only the standard library.
 - For C++ regeneration: GCC or Clang with C++17, `__int128`, and
   `__builtin_*_overflow` support.
 - GMP with C++ bindings and `pkg-config` metadata for `gmpxx`.
+- For local Lean builds: the toolchain named by `lean/lean-toolchain`; Lake uses
+  the dependencies pinned by `lean/lake-manifest.json`. GitHub Actions installs
+  the pinned toolchain automatically.
 
 ## Quick verification
 
-Run from the repository root:
+Run the existing standalone checks from the repository root:
 
 ```sh
 python3 checks/capacity/verify_numerical_inputs.py
@@ -60,6 +80,20 @@ The expected conclusions are:
 - the refined finite mass is below 2024 and the analytic comparison begins at
   genus 837; and
 - every finite row for genera 1 through 836 has nonnegative slack.
+
+A normal local Lean build is:
+
+```sh
+python3 -I .github/lean/prepare.py
+cd lean
+lake build Results.Genus.Native.Main \
+  Results.Genus.Native.Coverage \
+  Results.Genus.Native.KnownAsymptotic
+```
+
+This may be a long single-machine computation. The public GitHub Actions
+workflow distributes the 279 native certificate builds and then performs the
+full build, exact axiom audit, and fresh kernel replay.
 
 ## Coefficient regeneration
 
@@ -136,10 +170,15 @@ files contain exact integer interval endpoints with common scale `2^56`.
 
 ## Reproducibility boundary
 
-Stored-data verification and source regeneration are distinct. The quick checks
-verify hashes, exact arithmetic, and the theorem's finite and analytic joins.
-The regeneration commands recompute the coefficient arrays or interval boxes
-from their C++ sources. `MANIFEST.json` identifies every distributed file.
+Stored-data verification, source regeneration, and Lean proof verification are
+distinct. The quick Python checks verify hashes, exact arithmetic, and the
+theorem's finite and analytic joins. The C++ commands recompute the coefficient
+arrays or interval boxes from their standalone sources. The Lean build checks
+the end-to-end theorem over actual numerical semigroups; its 279 named
+`native_decide` certificate theorems retain trust in compiled evaluation.
+`MANIFEST.json` identifies every distributed standalone code/data file, while
+`.github/lean/source-sha256.json` seals the published Lean source and project
+configuration.
 
 ## License
 
@@ -147,4 +186,3 @@ The original code, computed data, and documentation are distributed under the
 [MIT License](LICENSE). This grant also covers the v1 release at commit
 `26d999739c7233f8131790efcbc367c0463caf09`. The manuscript and third-party
 literature are not included in this grant.
-
