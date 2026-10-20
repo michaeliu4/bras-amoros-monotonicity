@@ -1,0 +1,9 @@
+import Results.Genus.FiniteArithmetic.Reservoir.Lookup1500
+namespace SubmittedGenus.FiniteArithmetic.Reservoir.Certificate1500
+set_option maxHeartbeats 3000000
+set_option maxRecDepth 10000
+theorem recurrence_22 : CheckedRange 704 32 := by decide
+theorem lower_22 : LowerRange 704 32 := by decide
+#print axioms recurrence_22
+#print axioms lower_22
+end SubmittedGenus.FiniteArithmetic.Reservoir.Certificate1500

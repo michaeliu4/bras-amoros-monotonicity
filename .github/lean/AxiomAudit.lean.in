@@ -1,0 +1,52 @@
+import Results.Genus.Native.Coverage
+import Results.Genus.Native.KnownAsymptotic
+import Lean.Util.CollectAxioms
+
+open Lean Elab Command
+run_cmd do
+  let env ← getEnv
+  let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
+  let expected : Array Name := @NATIVE_AXIOMS@
+  let triples : Array (Name × Name × Name) := @NATIVE_TRIPLES@
+  let moduleOf := fun n => do
+    let idx ← env.getModuleIdxFor? n
+    env.header.moduleNames[idx.toNat]?
+  for (mod, thm, ax) in triples do
+    unless moduleOf thm == some mod && moduleOf ax == some mod do
+      throwError "Wrong theorem or axiom provenance: {mod}, {thm}, {ax}"
+    match env.find? ax with
+    | some (.axiomInfo v) =>
+      if v.isUnsafe then throwError "Unsafe native axiom: {ax}"
+    | _ => throwError "Expected generated axiom missing: {ax}"
+    let deps ← collectAxioms thm
+    let nonstandard := deps.filter fun a => !allowed.contains a
+    unless nonstandard.size == 1 && nonstandard.contains ax do
+      throwError "Native theorem has unexpected dependencies: {thm}"
+  let mut count : Nat := 0
+  let mut nativeDecls : Array Name := #[]
+  let mut seen : Array Name := #[]
+  for (n, _) in env.constants.map₁.toList do
+    match env.getModuleIdxFor? n with
+    | some idx =>
+      if !(`Results).isPrefixOf env.header.moduleNames[idx.toNat]! then continue
+    | none => continue
+    count := count + 1
+    let axs ← collectAxioms n
+    let mut usesNative := false
+    for a in axs do
+      if allowed.contains a then continue
+      unless expected.contains a do throwError "FORBIDDEN AXIOM: {n} uses {a}"
+      usesNative := true
+      if !seen.contains a then seen := seen.push a
+    if usesNative then nativeDecls := nativeDecls.push n
+  for a in expected do
+    unless seen.contains a do throwError "Expected native axiom not found: {a}"
+  let mainAxioms ← collectAxioms `SubmittedGenus.Native.bras_amoros_weak_monotonicity
+  for a in mainAxioms do
+    unless allowed.contains a || expected.contains a do
+      throwError "Main theorem uses forbidden axiom: {a}"
+    logInfo m!"MAIN AXIOM {a}"
+  for a in expected do
+    unless mainAxioms.contains a do throwError "Main theorem missing expected native dependency: {a}"
+  logInfo m!"AXIOM AUDIT PASSED: {count} declarations, {nativeDecls.size} distinct declarations using native evaluation, {seen.size} exact native axioms"
+
