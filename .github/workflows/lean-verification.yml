@@ -2,7 +2,8 @@ name: Public Lean verification
 run-name: Public Lean proof verification @ ${{ github.sha }}
 
 # Full verification starts on a PR, before the workflow exists on default.
-# No project cache: only public Mathlib cache and outputs from this run.
+# Normally builds every native certificate from source. PR 2's audit-helper
+# repair reuses one pinned public run after checking unchanged proof sources.
 "on":
   pull_request:
     paths:
@@ -13,6 +14,7 @@ run-name: Public Lean proof verification @ ${{ github.sha }}
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: public-lean-${{ github.ref }}
@@ -29,6 +31,8 @@ jobs:
     outputs:
       cap4: ${{ steps.plan.outputs.cap4 }}
       other: ${{ steps.plan.outputs.other }}
+      recovery: ${{ steps.recovery.outputs.recovery }}
+      artifact-run-id: ${{ steps.recovery.outputs.artifact-run-id }}
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
@@ -36,10 +40,16 @@ jobs:
       - name: Verify published sources and plan all native certificates
         id: plan
         run: python3 -I .github/lean/prepare.py
+      - name: Select clean build or exactly pinned audit-helper recovery
+        id: recovery
+        run: |
+          echo "340327554fe24306bc9bfa9a89cb673a9c26ca954225578a3a9d722efaef3257  .github/lean/recovery.py" | sha256sum --check -
+          python3 -I .github/lean/recovery.py plan
 
   base:
     name: clean shared dependency build
     needs: plan
+    if: needs.plan.outputs.recovery != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     steps:
@@ -71,6 +81,7 @@ jobs:
   native-cap4:
     name: native (${{ matrix.module }})
     needs: [plan, base]
+    if: needs.plan.outputs.recovery != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     strategy:
@@ -115,6 +126,7 @@ jobs:
   native-other:
     name: native (${{ matrix.module }})
     needs: [plan, base]
+    if: needs.plan.outputs.recovery != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     strategy:
@@ -158,7 +170,17 @@ jobs:
 
   verify:
     name: full build, exact axiom audit and fresh kernel replay
-    needs: [base, native-cap4, native-other]
+    needs: [plan, base, native-cap4, native-other]
+    if: >-
+      ${{ always() && needs.plan.result == 'success' &&
+          ((needs.plan.outputs.recovery == 'true' &&
+            needs.base.result == 'skipped' &&
+            needs.native-cap4.result == 'skipped' &&
+            needs.native-other.result == 'skipped') ||
+           (needs.plan.outputs.recovery == 'false' &&
+            needs.base.result == 'success' &&
+            needs.native-cap4.result == 'success' &&
+            needs.native-other.result == 'success')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     steps:
@@ -171,15 +193,27 @@ jobs:
         with:
           name: base-build
           path: artifacts/base
+          run-id: ${{ needs.plan.outputs.artifact-run-id }}
+          repository: ${{ github.repository }}
+          github-token: ${{ github.token }}
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           pattern: native-*
           path: artifacts/native
-      - name: Restore exactly this run's complete native certificate set
+          run-id: ${{ needs.plan.outputs.artifact-run-id }}
+          repository: ${{ github.repository }}
+          github-token: ${{ github.token }}
+      - name: Restore the complete native certificate set with exact provenance
+        env:
+          RECOVERY: ${{ needs.plan.outputs.recovery }}
         run: |
           set -euo pipefail
-          python3 -I .github/lean/artifacts.py restore artifacts/base
-          python3 -I .github/lean/artifacts.py restore-native artifacts/native
+          if [[ "$RECOVERY" == true ]]; then
+            python3 -I .github/lean/recovery.py restore
+          else
+            python3 -I .github/lean/artifacts.py restore artifacts/base
+            python3 -I .github/lean/artifacts.py restore-native artifacts/native
+          fi
           python3 -I .github/lean/prepare.py
       - name: Build all published proof roots and audit their exact axioms
         run: |
@@ -190,6 +224,8 @@ jobs:
           (cd lean && lake env lean ../.ci-plan/AxiomAudit.lean) 2>&1 | tee axiom-audit.log
           grep -q 'AXIOM AUDIT PASSED' axiom-audit.log
       - name: Fresh kernel replay of full coverage
+        env:
+          ARTIFACT_RUN_ID: ${{ needs.plan.outputs.artifact-run-id }}
         run: |
           set -euo pipefail
           # Coverage imports Main; KnownAsymptotic contains only a background Prop.
@@ -198,7 +234,8 @@ jobs:
           python3 -I .github/lean/prepare.py
           {
             echo "Verified public commit: $GITHUB_SHA"
-            echo "All 279 native certificates compiled from checked-out sources in this run."
+            echo "All 279 native certificates compiled from identical proof sources in public run $ARTIFACT_RUN_ID."
+            echo "Recovery origin, when used: .ci-plan/recovery-origin.json."
             echo "Full proof build, exact axiom audit and fresh kernel replay passed."
             echo "Trust: Lean kernel plus standard axioms and compiled native evaluation."
             echo "Fresh replay does not independently re-prove the native calculations."

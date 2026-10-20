@@ -47,9 +47,16 @@ def pack(dest, module):
             "base_metadata_sha256": base, "produced_attempt": os.environ.get("GITHUB_RUN_ATTEMPT", "")}
     (dest / "metadata.json").write_text(json.dumps(meta, sort_keys=True, indent=2) + "\n")
 
-def restore(src, expected_module):
+def restore(src, expected_module, *, origin=None):
     meta = json.loads((src / "metadata.json").read_text())
-    for key, val in identity().items():
+    # Normal callers remain bound to this run. Recovery can replace only the
+    # producer commit/run; current source-manifest and toolchain checks remain.
+    expected = identity()
+    if origin is not None:
+        if set(origin) != {"commit", "run_id"} or not all(origin.values()):
+            raise SystemExit("Recovery origin must specify exactly commit and run_id")
+        expected.update(origin)
+    for key, val in expected.items():
         if meta.get(key) != val: raise SystemExit(f"Artifact identity mismatch: {src}: {key}")
     if meta["module"] != expected_module: raise SystemExit(f"Wrong artifact module: {src}")
     if expected_module and meta["base_metadata_sha256"] != sha(Path("artifacts/base/metadata.json")):
@@ -87,6 +94,17 @@ def restore(src, expected_module):
     if seen != set(meta["files"]): raise SystemExit("Missing artifact members")
     print(f"Restored {len(seen)} checked build files from {src}")
 
+def restore_native(directory, *, origin=None):
+    expected = set(json.loads(Path(".ci-plan/native.json").read_text()))
+    dirs = sorted(directory.glob("native-*"))
+    seen = set()
+    for d in dirs:
+        m = json.loads((d / "metadata.json").read_text())["module"]
+        if m not in expected or m in seen: raise SystemExit(f"Unexpected/duplicate native module: {m}")
+        restore(d, m, origin=origin); seen.add(m)
+    if seen != expected: raise SystemExit(f"Missing native modules: {sorted(expected-seen)}")
+    print(f"Restored all {len(seen)} native modules from the validated origin")
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("command", choices=["pack", "restore", "restore-native"])
@@ -95,15 +113,6 @@ def main():
     a = ap.parse_args()
     if a.command == "pack": pack(a.directory, a.module)
     elif a.command == "restore": restore(a.directory, a.module)
-    else:
-        expected = set(json.loads(Path(".ci-plan/native.json").read_text()))
-        dirs = sorted(a.directory.glob("native-*"))
-        seen = set()
-        for d in dirs:
-            m = json.loads((d / "metadata.json").read_text())["module"]
-            if m not in expected or m in seen: raise SystemExit(f"Unexpected/duplicate native module: {m}")
-            restore(d, m); seen.add(m)
-        if seen != expected: raise SystemExit(f"Missing native modules: {sorted(expected-seen)}")
-        print(f"Restored all {len(seen)} native modules from this run")
+    else: restore_native(a.directory)
 
 if __name__ == "__main__": main()

@@ -22,7 +22,7 @@ run_cmd do
     let nonstandard := deps.filter fun a => !allowed.contains a
     unless nonstandard.size == 1 && nonstandard.contains ax do
       throwError "Native theorem has unexpected dependencies: {thm}"
-  let mut count := 0
+  let mut count : Nat := 0
   let mut nativeDecls : Array Name := #[]
   let mut seen : Array Name := #[]
   for (n, _) in env.constants.map₁.toList do

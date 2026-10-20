@@ -56,7 +56,33 @@ Lean kernel, the standard axioms listed above, and compiled evaluation for the
 background `Prop`; it is neither proved in this project nor a dependency of the
 main theorem.
 
-The public workflow performs a clean, distributed rebuild of every native
+The default workflow performs a clean, distributed rebuild of every native
 certificate from checked-out source before the final build, axiom audit, and
 fresh replay. It does not use a project build cache or a prior-run proof
-artifact. Public CI verification of this export is pending.
+artifact. The narrowly scoped PR 2 recovery described below is an explicit
+exception for continuing the same verification after an audit-helper repair.
+Public CI verification of this export is pending.
+
+### Audit-helper recovery on PR 2
+
+Public run `39069868966`, on head
+`a5d34b7027d21d1c3ad39ba61bd468a1b9ae0bb6` and PR merge commit
+`161425b091a24e6b5afc3f03d9979dc3d930f382`, successfully compiled all 279
+native certificates and all three published proof roots. Its generated axiom
+audit then failed to elaborate an unannotated declaration counter as a natural
+number. The repair annotates that counter with `Nat`; it does not change any
+proof source, allowed axiom, provenance check, or coverage requirement.
+
+For this same-repository PR and branch only, the workflow resumes from that
+exact public run's base and native artifacts. The recovery helper requires the
+original source-manifest digest, all actual source/configuration hashes, the
+pinned toolchain, the reviewed helper hashes, and the original artifact
+run/commit identity. Archive/member digests, shared-base identity and exactly
+279 native modules are still checked. Other PRs and manual runs retain the
+clean native build. Recovery fails closed if the proof/configuration changes;
+it does not fall back to silently reusing incompatible outputs.
+
+The repaired run must still pass the full root build, the exact axiom audit,
+and both fresh replays. Its evidence records the original computation run and
+the repaired commit separately. Until those checks pass, public verification
+remains incomplete.
