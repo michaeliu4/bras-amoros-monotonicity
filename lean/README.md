@@ -83,10 +83,13 @@ The formalization contains 279 `native_decide` certificate theorems:
 - 12 cap-five shards; and
 - 43 prefix chunks for the short, pure, and mixed guarded prefix bounds.
 
-CI compiles each certificate from checked-out source in the current run. It then
-merges only build outputs whose public commit, run, source manifest, toolchain,
-module, archive, and member identities match. All 279 modules are required
-before the main theorem is built.
+The normal CI workflow compiles each certificate from checked-out source in the
+current run. It then merges only build outputs whose public commit, run, source
+manifest, toolchain, module, archive, and member identities match. All 279 modules
+are required before the main theorem is built. PR 2's narrowly pinned recovery
+reused the original successful public certificate builds after an audit-helper
+repair, with unchanged proof sources and all identity checks retained; see
+[the recovery provenance](../VERIFICATION.md#audit-helper-recovery-on-pr-2).
 
 ## Trust boundary
 
@@ -103,6 +106,10 @@ new process. It still trusts compiled evaluation for the 279 named native
 computations; it does not independently re-prove those calculations by kernel
 reduction.
 
-Public CI verification of this exported project is pending. The existing
-standalone Python/C++ checks remain separately reproducible as described in the
-repository root `README.md` and `VERIFICATION.md`.
+Public verification completed on 20 October 2026. The full root build, exact
+279-native-axiom audit and both fresh replays passed in
+[run 39422414504](https://github.com/michaeliu4/bras-amoros-monotonicity/actions/runs/39422414504).
+The [commit-bound evidence](../VERIFICATION.md#completed-public-verification)
+distinguishes the original native computations from the final recovery run.
+The standalone Python/C++ checks remain separately reproducible as described
+in the repository root `README.md` and `VERIFICATION.md`.

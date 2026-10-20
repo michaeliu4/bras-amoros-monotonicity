@@ -61,7 +61,7 @@ certificate from checked-out source before the final build, axiom audit, and
 fresh replay. It does not use a project build cache or a prior-run proof
 artifact. The narrowly scoped PR 2 recovery described below is an explicit
 exception for continuing the same verification after an audit-helper repair.
-Public CI verification of this export is pending.
+Public verification completed on 20 October 2026, with the provenance below.
 
 ### Audit-helper recovery on PR 2
 
@@ -84,7 +84,40 @@ backoff after failures. Other PRs and manual runs retain the
 clean native build. Recovery fails closed if the proof/configuration changes;
 it does not fall back to silently reusing incompatible outputs.
 
-The repaired run must still pass the full root build, the exact axiom audit,
-and both fresh replays. Its evidence records the original computation run and
-the repaired commit separately. Until those checks pass, public verification
-remains incomplete.
+The repaired run passed the full root build, the exact axiom audit and both
+fresh replays. Its evidence records the original computation run and the
+repaired commit separately.
+
+### Completed public verification
+
+[Run 39422414504](https://github.com/michaeliu4/bras-amoros-monotonicity/actions/runs/39422414504)
+completed successfully on 20 October 2026 at 13:06 UTC. Its source head is
+`6a69a6fbffa54e91336c4ad5bcac6d9b7556d7cf`; the checked PR merge commit is
+`945274f36ca5a832f48b7ea725f4c09f9173d61b`.
+The subsequent documentation update changes no proof, build configuration,
+audit policy or verification helper.
+
+| Evidence | Result |
+|---|---|
+| Original native computations | All 279 certificates compiled in [run 39069868966](https://github.com/michaeliu4/bras-amoros-monotonicity/actions/runs/39069868966), attempts 1 and 2 |
+| Source identity | All 1,196 project modules matched the committed source manifest throughout recovery |
+| Artifact recovery | Exact 279-module set restored with producer identity, toolchain, shared-base and archive/member checks |
+| Full root build | 4,327 build jobs completed successfully; exit status 0 |
+| Exact axiom audit | 19,680 declarations checked; 612 distinct declarations use native evaluation; exactly 279 native axioms |
+| Fresh replay of `Results.Genus.Native.Coverage` | Exit status 0 |
+| Fresh replay of `Results.Genus.Native.KnownAsymptotic` | Exit status 0 |
+
+The full log is attached to
+[verification job 118626529370](https://github.com/michaeliu4/bras-amoros-monotonicity/actions/runs/39422414504/job/118626529370).
+The run's single `verification-evidence` artifact has ID `12265818948` and
+SHA-256 digest
+`1052c103a6f438a228bf9f4df173305e2534d3b12b68076b33896a4c430fe14b`.
+It contains the build, audit and replay logs, the exact certificate plan,
+recovery provenance and source manifest. GitHub artifact retention is finite;
+the recorded expiry is 19 November 2026.
+
+This verifies the all-genus weak-monotonicity theorem over actual numerical
+semigroups under the trust boundary stated above. The 612 declarations counted
+by the audit are users of native evaluation, not 612 separate computations.
+Fresh replay retains trust in the 279 compiled computations, and the separate
+Zhai asymptotic proposition remains background only.

@@ -44,7 +44,11 @@ The main Lean declaration is
 Here `NumericalSemigroup.count g` counts actual additive submonoids of `ℕ` with
 finite complement of size `g`. The proof uses 279 `native_decide` certificate
 theorems: 224 cap-four array shards, 12 cap-five array shards, and 43 prefix
-chunks. Public CI verification of the exported project is pending. See
+chunks. Public verification completed on 20 October 2026: the full build,
+exact axiom audit and both fresh replays passed in
+[run 39422414504](https://github.com/michaeliu4/bras-amoros-monotonicity/actions/runs/39422414504).
+See [verification evidence and provenance](VERIFICATION.md#completed-public-verification)
+and
 [`lean/README.md`](lean/README.md) for the theorem map and exact trust boundary.
 
 ## Requirements
