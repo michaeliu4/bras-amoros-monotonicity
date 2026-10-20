@@ -78,7 +78,9 @@ exact public run's base and native artifacts. The recovery helper requires the
 original source-manifest digest, all actual source/configuration hashes, the
 pinned toolchain, the reviewed helper hashes, and the original artifact
 run/commit identity. Archive/member digests, shared-base identity and exactly
-279 native modules are still checked. Other PRs and manual runs retain the
+279 native modules are still checked. Recovery downloads use the official GitHub
+CLI with complete pagination, sequential named batches, pacing and bounded
+backoff after failures. Other PRs and manual runs retain the
 clean native build. Recovery fails closed if the proof/configuration changes;
 it does not fall back to silently reusing incompatible outputs.
 

@@ -43,7 +43,7 @@ jobs:
       - name: Select clean build or exactly pinned audit-helper recovery
         id: recovery
         run: |
-          echo "340327554fe24306bc9bfa9a89cb673a9c26ca954225578a3a9d722efaef3257  .github/lean/recovery.py" | sha256sum --check -
+          echo "66790f5d3ea9b07e248d29fe0e888144028bbb7ed7ff7b7bb08f9dff57db9e2a  .github/lean/recovery.py" | sha256sum --check -
           python3 -I .github/lean/recovery.py plan
 
   base:
@@ -196,7 +196,13 @@ jobs:
           run-id: ${{ needs.plan.outputs.artifact-run-id }}
           repository: ${{ github.repository }}
           github-token: ${{ github.token }}
+      - name: Download pinned recovery artifacts with complete pagination and pacing
+        if: needs.plan.outputs.recovery == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I .github/lean/download_recovery.py
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        if: needs.plan.outputs.recovery != 'true'
         with:
           pattern: native-*
           path: artifacts/native

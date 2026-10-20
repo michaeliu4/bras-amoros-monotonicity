@@ -19,6 +19,7 @@ ORIGIN = {
     "toolchain": "leanprover/lean4:v4.32.1",
 }
 HELPERS = {
+    "download_recovery.py": "28cc16ee3411d4d1406d23323292dc05d95d5ee8196e0522f4505fa7b9fa3880",
     "prepare.py": "934cd8211ababa8173077b8cbcc12968628f7aaca498b3ec6229dc7a4d6f119d",
     "bootstrap.sh": "97427e2967a8f5aa16bf2838500f91564f3d8d5b28e1b27bf7967a466eb26f57",
     "AxiomAudit.lean.in": "35758ee4aa180d49ed7f340cf44dd70fabc38587e2cce183c8531f0b2f31c367",
